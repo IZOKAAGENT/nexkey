@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NEXKEY — AI Automation for Real Estate</title>
+    <meta name="description" content="AI-powered lead qualification and automated outreach for real estate companies. Respond to leads in <3 seconds, 24/7.">
+    <style>
+        :root {
+            --primary: #0a192f;
+            --secondary: #112240;
+            --accent: #64ffda;
+            --text: #ccd6f6;
+            --text-muted: #8892b0;
+            --white: #e6f1ff;
+            --gradient: linear-gradient(135deg, #64ffda 0%, #00b4d8 100%);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: var(--primary);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Language Toggle */
+        .lang-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            background: var(--secondary);
+            border: 1px solid var(--accent);
+            border-radius: 8px;
+            padding: 8px 16px;
+            cursor: pointer;
+            color: var(--accent);
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .lang-toggle:hover {
+            background: var(--accent);
+            color: var(--primary);
+        }
+
+        /* Navigation */
+        nav {
+            padding: 20px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(100, 255, 218, 0.1);
+        }
+
+        .logo {
+            font-size: 2rem;
+            font-weight: 800;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -1px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent);
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 90vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 0 5%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 50% 50%, rgba(100, 255, 218, 0.1) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+            line-height: 1.1;
+            color: var(--white);
+        }
+
+        .hero h1 span {
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            color: var(--text-muted);
+            margin-bottom: 40px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 16px 40px;
+            background: var(--gradient);
+            color: var(--primary);
+            font-weight: 700;
+            font-size: 1.1rem;
+            border: none;
+            border-radius: 8px;
+            text-decoration: none;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(100, 255, 218, 0.3);
+        }
+
+        .secondary-button {
+            display: inline-block;
+            padding: 16px 40px;
+            background: transparent;
+            color: var(--accent);
+            font-weight: 700;
+            font-size: 1.1rem;
+            border: 2px solid var(--accent);
+            border-radius: 8px;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-left: 15px;
+        }
+
+        .secondary-button:hover {
+            background: rgba(100, 255, 218, 0.1);
+        }
+
+        /* Stats Section */
+        .stats {
+            padding: 80px 5%;
+            background: var(--secondary);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .stat-item h3 {
+            font-size: 3rem;
+            font-weight: 800;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+        }
+
+        .stat-item p {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+        }
+
+        /* Features Section */
+        .features {
+            padding: 120px 5%;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: var(--white);
+            margin-bottom: 15px;
+        }
+
+        .section-title p {
+            color: var(--text-muted);
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .feature-card {
+            background: var(--secondary);
+            padding: 40px;
+            border-radius: 12px;
+            border: 1px solid rgba(100, 255, 218, 0.1);
+            transition: transform 0.3s, border-color 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+
+        .feature-card h3 {
+            font-size: 1.5rem;
+            color: var(--white);
+            margin-bottom: 15px;
+        }
+
+        .feature-card p {
+            color: var(--text-muted);
+        }
+
+        /* Pricing Section */
+        .pricing {
+            padding: 120px 5%;
+            background: var(--secondary);
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .pricing-card {
+            background: var(--primary);
+            padding: 50px 40px;
+            border-radius: 12px;
+            border: 2px solid rgba(100, 255, 218, 0.1);
+            text-align: center;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .pricing-card.featured {
+            border-color: var(--accent);
+            transform: scale(1.05);
+        }
+
+        .pricing-card.featured::before {
+            content: 'MOST POPULAR';
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--gradient);
+            color: var(--primary);
+            padding: 4px 16px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 700;
+        }
+
+        .pricing-card h3 {
+            font-size: 1.8rem;
+            color: var(--white);
+            margin-bottom: 10px;
+        }
+
+        .pricing-card .price {
+            font-size: 3rem;
+            font-weight: 800;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin: 20px 0;
+        }
+
+        .pricing-card .price span {
+            font-size: 1rem;
+            -webkit-text-fill-color: var(--text-muted);
+        }
+
+        .pricing-card ul {
+            list-style: none;
+            margin: 30px 0;
+        }
+
+        .pricing-card li {
+            padding: 10px 0;
+            color: var(--text-muted);
+        }
+
+        .pricing-card li::before {
+            content: '✓ ';
+            color: var(--accent);
+            font-weight: 700;
+        }
+
+        /* Testimonials */
+        .testimonials {
+            padding: 120px 5%;
+        }
+
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .testimonial-card {
+            background: var(--secondary);
+            padding: 40px;
+            border-radius: 12px;
+            border-left: 4px solid var(--accent);
+        }
+
+        .testimonial-card p {
+            font-style: italic;
+            color: var(--text);
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+        }
+
+        .testimonial-author {
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+
+        /* Contact Section */
+        .contact {
+            padding: 120px 5%;
+            background: var(--secondary);
+            text-align: center;
+        }
+
+        .contact-form {
+            max-width: 600px;
+            margin: 0 auto;
+            text-align: left;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--text);
+            font-weight: 600;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 14px;
+            background: var(--primary);
+            border: 1px solid rgba(100, 255, 218, 0.2);
+            border-radius: 8px;
+            color: var(--text);
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--accent);
+        }
+
+        .form-group textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        /* Footer */
+        footer {
+            padding: 40px 5%;
+            text-align: center;
+            border-top: 1px solid rgba(100, 255, 218, 0.1);
+            color: var(--text-muted);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero p {
+                font-size: 1.1rem;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .cta-button,
+            .secondary-button {
+                display: block;
+                margin: 10px auto;
+                width: 80%;
+            }
+
+            .pricing-card.featured {
+                transform: none;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            animation: fadeInUp 0.6s ease-out;
+        }
+    </style>
+</head>
+<body>
+    <!-- Language Toggle -->
+    <button class="lang-toggle" onclick="toggleLanguage()">🇬🇧 EN / 🇪🇸 ES</button>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="logo">NEXKEY</div>
+        <ul class="nav-links">
+            <li><a href="#features" data-es="Características" data-en="Features">Features</a></li>
+            <li><a href="#pricing" data-es="Precios" data-en="Pricing">Pricing</a></li>
+            <li><a href="#testimonials" data-es="Testimonios" data-en="Testimonials">Testimonials</a></li>
+            <li><a href="#contact" data-es="Contacto" data-en="Contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content fade-in">
+            <h1>
+                <span data-es="Nunca pierdas otro lead" data-en="Never Lose Another Lead">Never Lose Another Lead</span><br>
+                <span data-es="Gracias a la IA" data-en="Thanks to AI">Thanks to AI</span>
+            </h1>
+            <p data-es="Agentes de IA que responden leads en menos de 3 segundos, 24/7. Calificación automática, agendamiento inteligente y prospección autónoma para inmobiliarias."
+               data-en="AI agents that respond to leads in under 3 seconds, 24/7. Auto-qualification, smart scheduling, and autonomous prospecting for real estate companies.">
+                AI agents that respond to leads in under 3 seconds, 24/7. Auto-qualification, smart scheduling, and autonomous prospecting for real estate companies.
+            </p>
+            <a href="#contact" class="cta-button" data-es="Solicitar Demo Gratuita" data-en="Request Free Demo">Request Free Demo</a>
+            <a href="#features" class="secondary-button" data-es="Ver Cómo Funciona" data-en="See How It Works">See How It Works</a>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats">
+        <div class="stats-grid">
+            <div class="stat-item">
+                <h3>&lt;3s</h3>
+                <p data-es="Tiempo de respuesta" data-en="Response time">Response time</p>
+            </div>
+            <div class="stat-item">
+                <h3>65%</h3>
+                <p data-es="Más citas agendadas" data-en="More appointments scheduled">More appointments scheduled</p>
+            </div>
+            <div class="stat-item">
+                <h3>$15K+</h3>
+                <p data-es="Leads recuperados/mes" data-en="Recovered leads/month">Recovered leads/month</p>
+            </div>
+            <div class="stat-item">
+                <h3>24/7</h3>
+                <p data-es="Operación continua" data-en="Continuous operation">Continuous operation</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features" id="features">
+        <div class="section-title">
+            <h2 data-es="Todo lo que necesitas" data-en="Everything You Need">Everything You Need</h2>
+            <p data-es="Automatización completa para captar, calificar y convertir leads" data-en="Complete automation to capture, qualify, and convert leads">Complete automation to capture, qualify, and convert leads</p>
+        </div>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">⚡</div>
+                <h3 data-es="Respuesta Instantánea" data-en="Instant Response">Instant Response</h3>
+                <p data-es="Los leads reciben respuesta en menos de 3 segundos, sin importar la hora del día o la noche." data-en="Leads get a response in under 3 seconds, regardless of the time of day.">Leads get a response in under 3 seconds, regardless of the time of day.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🎯</div>
+                <h3 data-es="Calificación Inteligente" data-en="Smart Qualification">Smart Qualification</h3>
+                <p data-es="La IA califica automáticamente cada lead según intención, presupuesto, ubicación y timeline." data-en="AI automatically qualifies each lead based on intent, budget, location, and timeline.">AI automatically qualifies each lead based on intent, budget, location, and timeline.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">📅</div>
+                <h3 data-es="Agendamiento Automático" data-en="Auto Scheduling">Auto Scheduling</h3>
+                <p data-es="Las visitas se agendan automáticamente sin intervención humana, con recordatorios inteligentes." data-en="Viewings are automatically scheduled with no human intervention, with smart reminders.">Viewings are automatically scheduled with no human intervention, with smart reminders.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🤖</div>
+                <h3 data-es="Prospección Autónoma" data-en="Autonomous Prospecting">Autonomous Prospecting</h3>
+                <p data-es="El agente busca nuevos clientes automáticamente y ejecuta campañas de outreach bilingües." data-en="The agent automatically finds new clients and executes bilingual outreach campaigns.">The agent automatically finds new clients and executes bilingual outreach campaigns.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">📊</div>
+                <h3 data-es="Reportes de ROI" data-en="ROI Reports">ROI Reports</h3>
+                <p data-es="Reportes mensuales detallados con métricas de conversión, leads recuperados y comisiones generadas." data-en="Detailed monthly reports with conversion metrics, recovered leads, and generated commissions.">Detailed monthly reports with conversion metrics, recovered leads, and generated commissions.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🔒</div>
+                <h3 data-es="Datos Seguros" data-en="Secure Data">Secure Data</h3>
+                <p data-es="Cumplimiento GDPR/LGPD/CCPA. Opción on-premise para datos que nunca salen de tu infraestructura." data-en="GDPR/LGPD/CCPA compliant. On-premise option for data that never leaves your infrastructure.">GDPR/LGPD/CCPA compliant. On-premise option for data that never leaves your infrastructure.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section class="pricing" id="pricing">
+        <div class="section-title">
+            <h2 data-es="Planes y Precios" data-en="Plans and Pricing">Plans and Pricing</h2>
+            <p data-es="Elige el plan que mejor se adapte a tu inmobiliaria" data-en="Choose the plan that best fits your real estate company">Choose the plan that best fits your real estate company</p>
+        </div>
+        <div class="pricing-grid">
+            <div class="pricing-card">
+                <h3 data-es="LatAm" data-en="LatAm">LatAm</h3>
+                <div class="price">$1,500<span data-es="/montaje" data-en="/setup"><span>/setup</span></div>
+                <ul>
+                    <li data-es="Agente de captación + calificación" data-en="Lead capture + qualification agent">Lead capture + qualification agent</li>
+                    <li data-es="WhatsApp Business API" data-en="WhatsApp Business API">WhatsApp Business API</li>
+                    <li data-es="Plantillas bilingües ES/EN" data-en="Bilingual ES/EN templates">Bilingual ES/EN templates</li>
+                    <li data-es="Monitoreo 24/7 + alertas" data-en="24/7 monitoring + alerts">24/7 monitoring + alerts</li>
+                    <li data-es="Reporte mensual de ROI" data-en="Monthly ROI report">Monthly ROI report</li>
+                </ul>
+                <div class="price" style="font-size: 2rem;">$1,500<span>/mes</span></div>
+                <a href="#contact" class="cta-button" data-es="Comenzar" data-en="Get Started">Get Started</a>
+            </div>
+            <div class="pricing-card featured">
+                <h3 data-es="EE.UU. / Global" data-en="US / Global">US / Global</h3>
+                <div class="price">$3,000<span data-es="/montaje" data-en="/setup"><span>/setup</span></div>
+                <ul>
+                    <li data-es="Todo lo de LatAm, más:" data-en="Everything in LatAm, plus:">Everything in LatAm, plus:</li>
+                    <li data-es="SMS + Email + WhatsApp" data-en="SMS + Email + WhatsApp">SMS + Email + WhatsApp</li>
+                    <li data-es="Agente de seguimiento automático" data-en="Auto follow-up agent">Auto follow-up agent</li>
+                    <li data-es="Agente agendador inteligente" data-en="Smart scheduler agent">Smart scheduler agent</li>
+                    <li data-es="Integración con CRM existente" data-en="Integration with existing CRM">Integration with existing CRM</li>
+                    <li data-es="Soporte prioritario" data-en="Priority support">Priority support</li>
+                </ul>
+                <div class="price" style="font-size: 2rem;">$3,000<span>/mes</span></div>
+                <a href="#contact" class="cta-button" data-es="Comenzar" data-en="Get Started">Get Started</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="testimonials" id="testimonials">
+        <div class="section-title">
+            <h2 data-es="Lo que dicen nuestros clientes" data-en="What Our Clients Say">What Our Clients Say</h2>
+        </div>
+        <div class="testimonial-grid">
+            <div class="testimonial-card">
+                <p data-es="&#34;Desde que instalamos NEXKEY, nuestro tiempo de respuesta bajó de 4 horas a 3 segundos. Las ventas subieron un 40% en el primer mes.&#34;"
+                   data-en="&#34;Since installing NEXKEY, our response time dropped from 4 hours to 3 seconds. Sales went up 40% in the first month.&#34;">
+                    "Since installing NEXKEY, our response time dropped from 4 hours to 3 seconds. Sales went up 40% in the first month."
+                </p>
+                <div class="testimonial-author">— Carlos M., Miami Realty</div>
+            </div>
+            <div class="testimonial-card">
+                <p data-es="&#34;Recuperamos 47 leads &#39;perdidos&#39; la primera semana. Eso fueron $23K en comisiones que casi perdemos.&#34;"
+                   data-en="&#34;We recovered 47 &#39;lost&#39; leads the first week. That was $23K in commissions we almost lost.&#34;">
+                    "We recovered 47 'lost' leads the first week. That was $23K in commissions we almost lost."
+                </p>
+                <div class="testimonial-author">— María G., Inmobiliaria Premium MX</div>
+            </div>
+            <div class="testimonial-card">
+                <p data-es="&#34;El agente de prospección encontró 15 clientes potenciales en una semana. La inversión se pagó sola.&#34;"
+                   data-en="&#34;The prospecting agent found 15 potential clients in one week. The investment paid for itself.&#34;">
+                    "The prospecting agent found 15 potential clients in one week. The investment paid for itself."
+                </p>
+                <div class="testimonial-author">— John D., Sunshine Properties FL</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact" id="contact">
+        <div class="section-title">
+            <h2 data-es="¿Listo para automatizar tu inmobiliaria?" data-en="Ready to Automate Your Realty?">Ready to Automate Your Realty?</h2>
+            <p data-es="Solicita una demo gratuita y descubre cuánto estás perdiendo por no responder a tiempo" data-en="Request a free demo and discover how much you're losing by not responding in time">Request a free demo and discover how much you're losing by not responding in time</p>
+        </div>
+        <form class="contact-form" onsubmit="handleSubmit(event)">
+            <div class="form-group">
+                <label data-es="Nombre completo" data-en="Full Name">Full Name</label>
+                <input type="text" name="name" required>
+            </div>
+            <div class="form-group">
+                <label data-es="Email" data-en="Email">Email</label>
+                <input type="email" name="email" required>
+            </div>
+            <div class="form-group">
+                <label data-es="Empresa" data-en="Company">Company</label>
+                <input type="text" name="company" required>
+            </div>
+            <div class="form-group">
+                <label data-es="País" data-en="Country">Country</label>
+                <select name="country" required>
+                    <option value="">—</option>
+                    <option value="MX">México</option>
+                    <option value="CO">Colombia</option>
+                    <option value="AR">Argentina</option>
+                    <option value="CL">Chile</option>
+                    <option value="PE">Perú</option>
+                    <option value="ES">España</option>
+                    <option value="US">United States</option>
+                    <option value="other">Other</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label data-es="¿Cuántos leads recibes por semana?" data-en="How many leads do you receive per week?">How many leads do you receive per week?</label>
+                <select name="leads_per_week">
+                    <option value="<10">&lt;10</option>
+                    <option value="10-50">10-50</option>
+                    <option value="50-100">50-100</option>
+                    <option value="100+">100+</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label data-es="Mensaje (opcional)" data-en="Message (optional)">Message (optional)</label>
+                <textarea name="message"></textarea>
+            </div>
+            <button type="submit" class="cta-button" style="width: 100%;" data-es="Solicitar Demo Gratuita" data-en="Request Free Demo">Request Free Demo</button>
+        </form>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>© 2026 NEXKEY. <span data-es="Todos los derechos reservados." data-en="All rights reserved.">All rights reserved.</span></p>
+        <p style="margin-top: 10px;">
+            <a href="#" style="color: var(--text-muted); margin: 0 10px;" data-es="Términos" data-en="Terms">Terms</a> |
+            <a href="#" style="color: var(--text-muted); margin: 0 10px;" data-es="Privacidad" data-en="Privacy">Privacy</a> |
+            <a href="#" style="color: var(--text-muted); margin: 0 10px;" data-es="Contacto" data-en="Contact">Contact</a>
+        </p>
+    </footer>
+
+    <script>
+        let currentLang = 'en';
+
+        function toggleLanguage() {
+            currentLang = currentLang === 'en' ? 'es' : 'en';
+            updateLanguage();
+        }
+
+        function updateLanguage() {
+            document.querySelectorAll('[data-' + currentLang + ']').forEach(el => {
+                el.innerHTML = el.getAttribute('data-' + currentLang);
+            });
+            document.documentElement.lang = currentLang;
+        }
+
+        function handleSubmit(e) {
+            e.preventDefault();
+            const formData = new FormData(e.target);
+            const data = Object.fromEntries(formData);
+
+            // In production, this would send to your backend
+            alert(currentLang === 'es'
+                ? '¡Gracias! Te contactaremos en las próximas 24 horas.'
+                : 'Thank you! We\'ll contact you within 24 hours.'
+            );
+
+            e.target.reset();
+        }
+
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+
+        // Intersection Observer for fade-in animations
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('fade-in');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.feature-card, .pricing-card, .testimonial-card').forEach(el => {
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
