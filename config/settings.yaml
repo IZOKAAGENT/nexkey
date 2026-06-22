@@ -1,0 +1,60 @@
+# NEXKEY Configuration
+
+company:
+  name: "NEXKEY"
+  tagline_es: "La llave al futuro del real estate"
+  tagline_en: "The key to real estate's future"
+  language: "bilingual"  # ES + EN
+
+pricing:
+  latam:
+    setup_fee: 1500
+    monthly_retainer: 1500
+    currency: "USD"
+  us:
+    setup_fee: 3000
+    monthly_retainer: 3000
+    currency: "USD"
+
+architecture:
+  brain: "Hermes Agent + LM Studio (local GPU)"
+  hosting: "Vercel free tier"
+  no_lowcode: true
+  operational_layer:
+    - "health_checks"
+    - "circuit_breaker"
+    - "retry_logic"
+    - "logging"
+    - "channel_fallback"
+
+agents:
+  - name: "router"
+    role: "Intent classification + language detection"
+    priority: 1
+  - name: "lead_qualifier"
+    role: "Capture and qualify inbound leads"
+    priority: 2
+  - name: "follow_up"
+    role: "Nurture cold prospects"
+    priority: 3
+  - name: "scheduler"
+    role: "Coordinate property viewings"
+    priority: 4
+  - name: "prospector"
+    role: "Self-prospecting (dogfooding)"
+    priority: 5
+
+channels:
+  primary: "whatsapp"
+  fallback_us: "sms"
+  fallback_global: "email"
+
+monitoring:
+  health_check_interval: 300  # seconds
+  circuit_breaker_threshold: 3  # failures before trip
+  circuit_breaker_timeout: 600  # seconds before retry
+  log_level: "INFO"
+  alert_on:
+    - "agent_down"
+    - "response_drift"
+    - "channel_failure"

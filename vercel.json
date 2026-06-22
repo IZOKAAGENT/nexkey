@@ -1,0 +1,16 @@
+{
+  "version": 2,
+  "name": "nexkey",
+  "builds": [
+    {
+      "src": "landing/index.html",
+      "use": "@vercel/static"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "/landing/$1"
+    }
+  ]
+}
