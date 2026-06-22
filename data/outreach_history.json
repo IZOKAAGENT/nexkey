@@ -1,0 +1,21 @@
+[
+  {
+    "id": "CAMP-20260622-203108",
+    "timestamp": "2026-06-22T20:31:08.449631",
+    "type": "daily_outreach",
+    "targets": [
+      {
+        "name": "Previous Lead A",
+        "country": "US",
+        "score": 75
+      },
+      {
+        "name": "Previous Lead B",
+        "country": "MX",
+        "score": 80
+      }
+    ],
+    "sent": 2,
+    "failed": 0
+  }
+]

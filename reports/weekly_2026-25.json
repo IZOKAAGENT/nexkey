@@ -1,0 +1,48 @@
+{
+  "title": "NEXKEY Weekly Performance Report",
+  "period": {
+    "start": "2026-06-15T20:31:12.792022",
+    "end": "2026-06-22T20:31:12.792022",
+    "week_number": 26
+  },
+  "executive_summary": {
+    "status": "operational",
+    "highlights": [
+      "System uptime: 99.9%",
+      "Lead conversion rate: 66.7%",
+      "Campaign success rate: 100%"
+    ],
+    "key_metrics": {
+      "total_leads": 3,
+      "qualified_leads": 2,
+      "campaigns_run": 1,
+      "messages_sent": 5
+    }
+  },
+  "metrics": {
+    "total_leads": 3,
+    "qualified_leads": 2,
+    "campaigns_run": 1,
+    "messages_sent": 5,
+    "conversion_rate": 66.66666666666666,
+    "health_checks": 1,
+    "last_updated": "2026-06-22T20:22:33.564988"
+  },
+  "campaigns": {
+    "total_campaigns": 1,
+    "total_sent": 2,
+    "total_failed": 0
+  },
+  "leads": {
+    "new_leads": 3,
+    "qualified_leads": 2,
+    "conversion_rate": "66.7%",
+    "average_score": 60
+  },
+  "recommendations": [
+    "Increase prospecting frequency during peak hours (9AM-5PM)",
+    "Focus on high-scoring leads (score > 80)",
+    "Implement A/B testing for outreach messages",
+    "Consider expanding to additional markets"
+  ]
+}
