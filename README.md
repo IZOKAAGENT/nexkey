@@ -101,6 +101,13 @@ python scripts/orchestrate.py --mode dry-run
 bash scripts/deploy.sh
 ```
 
+## 🌐 Links
+
+- **GitHub:** https://github.com/IZOKAAGENT/nexkey
+- **Landing:** https://nexkey.vercel.app (próximamente)
+
+---
+
 ## License
 
 Private — NEXKEY proprietary
