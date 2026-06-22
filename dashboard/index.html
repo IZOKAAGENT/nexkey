@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NEXKEY — Dashboard</title>
+    <style>
+        :root {
+            --primary: #0a192f;
+            --secondary: #112240;
+            --accent: #64ffda;
+            --text: #ccd6f6;
+            --text-muted: #8892b0;
+            --success: #00d084;
+            --warning: #ffab00;
+            --error: #ff5252;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--primary);
+            color: var(--text);
+            padding: 2rem;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        header {
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--accent);
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .subtitle {
+            color: var(--text-muted);
+        }
+        
+        .dashboard {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .card {
+            background: var(--secondary);
+            border-radius: 8px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .card h2 {
+            font-size: 1.25rem;
+            margin-bottom: 1rem;
+            color: var(--accent);
+        }
+        
+        .status {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .status-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--success);
+        }
+        
+        .status-dot.warning {
+            background: var(--warning);
+        }
+        
+        .status-dot.error {
+            background: var(--error);
+        }
+        
+        .metric {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .metric:last-child {
+            border-bottom: none;
+        }
+        
+        .metric-value {
+            font-weight: bold;
+            color: var(--accent);
+        }
+        
+        .log {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 4px;
+            padding: 1rem;
+            font-family: monospace;
+            font-size: 0.875rem;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+        
+        .log-entry {
+            margin-bottom: 0.25rem;
+        }
+        
+        .timestamp {
+            color: var(--text-muted);
+        }
+        
+        .success { color: var(--success); }
+        .warning { color: var(--warning); }
+        .error { color: var(--error); }
+        
+        .refresh-btn {
+            background: var(--accent);
+            color: var(--primary);
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-top: 1rem;
+        }
+        
+        .refresh-btn:hover {
+            opacity: 0.9;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📊 NEXKEY Dashboard</h1>
+            <p class="subtitle">AI Automation for Real Estate — System Monitor</p>
+        </header>
+        
+        <div class="dashboard">
+            <!-- System Status -->
+            <div class="card">
+                <h2>🔍 System Status</h2>
+                <div id="system-status">
+                    <div class="status">
+                        <div class="status-dot"></div>
+                        <span>Orchestrator: Running</span>
+                    </div>
+                    <div class="status">
+                        <div class="status-dot"></div>
+                        <span>Router Agent: Healthy</span>
+                    </div>
+                    <div class="status">
+                        <div class="status-dot"></div>
+                        <span>Prospector Agent: Healthy</span>
+                    </div>
+                    <div class="status">
+                        <div class="status-dot"></div>
+                        <span>Lead Qualifier: Healthy</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Metrics -->
+            <div class="card">
+                <h2>📈 Metrics</h2>
+                <div class="metric">
+                    <span>Total Leads</span>
+                    <span class="metric-value" id="total-leads">0</span>
+                </div>
+                <div class="metric">
+                    <span>Qualified Leads</span>
+                    <span class="metric-value" id="qualified-leads">0</span>
+                </div>
+                <div class="metric">
+                    <span>Prospecting Campaigns</span>
+                    <span class="metric-value" id="campaigns">0</span>
+                </div>
+                <div class="metric">
+                    <span>Messages Sent</span>
+                    <span class="metric-value" id="messages-sent">0</span>
+                </div>
+                <div class="metric">
+                    <span>Conversion Rate</span>
+                    <span class="metric-value" id="conversion-rate">0%</span>
+                </div>
+            </div>
+            
+            <!-- Recent Activity -->
+            <div class="card">
+                <h2>📋 Recent Activity</h2>
+                <div class="log" id="activity-log">
+                    <div class="log-entry">
+                        <span class="timestamp">[20:00:01]</span> 
+                        <span class="success">System initialized</span>
+                    </div>
+                    <div class="log-entry">
+                        <span class="timestamp">[20:00:02]</span> 
+                        <span class="success">Health check: 3/3 agents healthy</span>
+                    </div>
+                    <div class="log-entry">
+                        <span class="timestamp">[20:00:03]</span> 
+                        <span class="success">Prospecting campaign: 5/5 sent</span>
+                    </div>
+                    <div class="log-entry">
+                        <span class="timestamp">[20:00:04]</span> 
+                        <span class="success">Lead qualified: Miami, score 50</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Cron Jobs -->
+            <div class="card">
+                <h2>⏰ Scheduled Jobs</h2>
+                <div class="metric">
+                    <span>Health Check</span>
+                    <span class="metric-value">Every 30m</span>
+                </div>
+                <div class="metric">
+                    <span>Prospecting</span>
+                    <span class="metric-value">Every 6h</span>
+                </div>
+                <div class="metric">
+                    <span>Next Health Check</span>
+                    <span class="metric-value" id="next-health">--:--</span>
+                </div>
+                <div class="metric">
+                    <span>Next Prospecting</span>
+                    <span class="metric-value" id="next-prospect">--:--</span>
+                </div>
+            </div>
+        </div>
+        
+        <button class="refresh-btn" onclick="refreshDashboard()">🔄 Refresh</button>
+    </div>
+    
+    <script>
+        // Auto-refresh every 60 seconds
+        setInterval(refreshDashboard, 60000);
+        
+        function refreshDashboard() {
+            // In a real implementation, this would fetch data from the API
+            // For now, we'll simulate updates
+            console.log('Dashboard refreshed at', new Date().toISOString());
+        }
+        
+        // Update timestamps
+        function updateTimestamps() {
+            const now = new Date();
+            const nextHealth = new Date(now.getTime() + 30 * 60000);
+            const nextProspect = new Date(now.getTime() + 6 * 3600000);
+            
+            document.getElementById('next-health').textContent = 
+                `${nextHealth.getHours().toString().padStart(2, '0')}:${nextHealth.getMinutes().toString().padStart(2, '0')}`;
+            document.getElementById('next-prospect').textContent = 
+                `${nextProspect.getHours().toString().padStart(2, '0')}:${nextProspect.getMinutes().toString().padStart(2, '0')}`;
+        }
+        
+        // Initial load
+        updateTimestamps();
+        setInterval(updateTimestamps, 60000);
+    </script>
+</body>
+</html>

@@ -1,0 +1,29 @@
+# WhatsApp Business API Configuration
+# Register at: https://developers.facebook.com/docs/whatsapp/business-api
+
+whatsapp:
+  phone_number_id: ""  # Your WhatsApp Phone Number ID
+  access_token: ""     # Your Meta Access Token
+  business_account_id: ""  # Optional: Business Account ID
+  
+  # Message templates
+  templates:
+    - name: "nexkey_lead_inquiry"
+      language: "es"
+      description: "Template for new lead inquiries"
+    - name: "nexkey_follow_up"
+      language: "es"
+      description: "Template for follow-up messages"
+    - name: "nexkey_scheduling"
+      language: "es"
+      description: "Template for appointment scheduling"
+  
+  # Rate limiting
+  rate_limit:
+    messages_per_second: 10
+    messages_per_hour: 1000
+  
+  # Webhook configuration
+  webhook:
+    url: ""  # Your webhook URL for receiving messages
+    verify_token: ""
