@@ -17,5 +17,24 @@
     ],
     "sent": 2,
     "failed": 0
+  },
+  {
+    "id": "CAMP-20260623-003206",
+    "timestamp": "2026-06-23T00:32:06.424371",
+    "type": "daily_outreach",
+    "targets": [
+      {
+        "name": "Previous Lead A",
+        "country": "US",
+        "score": 75
+      },
+      {
+        "name": "Previous Lead B",
+        "country": "MX",
+        "score": 80
+      }
+    ],
+    "sent": 2,
+    "failed": 0
   }
 ]

@@ -1,9 +1,9 @@
 {
-  "total_leads": 3,
-  "qualified_leads": 2,
-  "campaigns_run": 1,
-  "messages_sent": 5,
+  "total_leads": 21,
+  "qualified_leads": 14,
+  "campaigns_run": 7,
+  "messages_sent": 35,
   "conversion_rate": 66.66666666666666,
-  "health_checks": 1,
-  "last_updated": "2026-06-22T20:22:33.564988"
+  "health_checks": 7,
+  "last_updated": "2026-06-23T02:29:15.950513"
 }
