@@ -1,33 +1,24 @@
 #!/usr/bin/env python3
 """
 NEXKEY — WhatsApp Webhook Handler
-Receives incoming messages from Meta and routes them to agents.
-
 Vercel Serverless Function: api/webhook.py
 """
 
 import json
 import os
 from datetime import datetime
-from pathlib import Path
 
 # Vercel environment headers
 def get_headers():
-    """Return CORS headers for Vercel"""
     return {
         "Access-Control-Allow-Origin": "*",
         "Access-Control-Allow-Methods": "POST, OPTIONS",
         "Access-Control-Allow-Headers": "Content-Type, Authorization",
     }
 
-# Force redeploy marker: 2026-06-24-01
-
 
 def verify_webhook(request):
-    """
-    Handle Meta's webhook verification challenge.
-    GET request with hub.verify_token, hub.challenge, hub.mode
-    """
+    """Handle Meta's webhook verification challenge."""
     verify_token = os.getenv("WHATSAPP_VERIFY_TOKEN", "nexkey_verify_token_2026")
     
     mode = request.get("query", {}).get("hub.mode", "")
@@ -48,45 +39,37 @@ def verify_webhook(request):
     }
 
 
+def classify_lead(message_body):
+    """Simple keyword-based lead classification."""
+    hot_keywords = ["comprar", "buy", "presupuesto", "budget", "visita", "visit"]
+    warm_keywords = ["info", "información", "information", "precio", "price"]
+    
+    message_lower = message_body.lower()
+    
+    if any(kw in message_lower for kw in hot_keywords):
+        return "hot"
+    elif any(kw in message_lower for kw in warm_keywords):
+        return "warm"
+    return "cold"
+
+
 def process_incoming_message(message_data):
-    """
-    Process incoming WhatsApp message and route to lead qualifier.
-    """
+    """Process incoming WhatsApp message."""
     try:
-        # Extract message info
-        phone_number_id = message_data.get("metadata", {}).get("phone_number_id", "")
         from_number = message_data.get("contacts", [{}])[0].get("wa_id", "")
         message_body = message_data.get("messages", [{}])[0].get("text", {}).get("body", "")
-        timestamp = message_data.get("messages", [{}])[0].get("timestamp", "")
         
-        # Log the incoming message
-        log_entry = {
-            "timestamp": datetime.now().isoformat(),
-            "from": from_number,
-            "message": message_body,
-            "phone_number_id": phone_number_id,
-            "status": "received"
+        # Classify lead
+        lead_status = classify_lead(message_body)
+        
+        # Generate response
+        responses = {
+            "hot": "¡Gracias por tu interés! Un asesor te contactará pronto.",
+            "warm": "¡Perfecto! Te envío más información sobre propiedades.",
+            "cold": "Entendido. Te mantengo informado sobre nuevas propiedades."
         }
         
-        # Save to incoming messages log
-        log_file = Path(__file__).parent.parent / "data" / "incoming_messages.json"
-        log_file.parent.mkdir(parents=True, exist_ok=True)
-        
-        messages = []
-        if log_file.exists():
-            with open(log_file, 'r') as f:
-                try:
-                    messages = json.load(f)
-                except json.JSONDecodeError:
-                    messages = []
-        
-        messages.append(log_entry)
-        
-        with open(log_file, 'w') as f:
-            json.dump(messages, f, indent=2)
-        
-        # Route to lead qualifier agent
-        response = route_to_lead_qualifier(from_number, message_body)
+        response = responses.get(lead_status, "Gracias por escribirnos.")
         
         return {
             "statusCode": 200,
@@ -94,43 +77,21 @@ def process_incoming_message(message_data):
             "body": json.dumps({
                 "status": "processed",
                 "from": from_number,
-                "response_sent": response.get("sent", False)
+                "lead_status": lead_status,
+                "response": response
             })
         }
         
     except Exception as e:
         return {
-            "statusCode": 200,  # Return 200 to acknowledge receipt even if processing fails
+            "statusCode": 200,
             "headers": get_headers(),
-            "body": json.dumps({
-                "status": "error",
-                "error": str(e)
-            })
+            "body": json.dumps({"status": "error", "error": str(e)})
         }
 
 
-def route_to_lead_qualifier(from_number, message_body):
-    """
-    Route incoming message to lead qualifier agent.
-    In production, this would call the agent via Hermes API.
-    For now, we log it and prepare auto-response.
-    """
-    from scripts.auto_responder import AutoResponder
-    
-    responder = AutoResponder()
-    
-    # Determine lead status and generate response
-    response = responder.process_incoming(from_number, message_body)
-    
-    # In live mode, this would send via WhatsApp
-    # For now, we log the intended response
-    return {"sent": True, "response": response}
-
-
 def handle_request(request):
-    """
-    Main webhook handler for Vercel.
-    """
+    """Main webhook handler for Vercel."""
     # Handle CORS preflight
     if request.get("method") == "OPTIONS":
         return {
@@ -157,7 +118,6 @@ def handle_request(request):
                     if value.get("messages"):
                         for message in value["messages"]:
                             result = process_incoming_message(value)
-                            # Return first result
                             return result
             
             return {

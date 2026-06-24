@@ -8,11 +8,5 @@
   },
   "env": {
     "WHATSAPP_VERIFY_TOKEN": "nexkey_verify_token_2026"
-  },
-  "routes": [
-    {
-      "src": "/(.*)",
-      "dest": "/dashboard/index.html"
-    }
-  ]
+  }
 }
