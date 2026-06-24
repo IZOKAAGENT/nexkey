@@ -28,6 +28,33 @@ class AutoResponder:
             }
         }
     
+    def process_incoming(self, from_number, message_body):
+        """Process incoming message and generate response"""
+        # Simple keyword-based classification
+        hot_keywords = ["comprar", "buy", "presupuesto", "budget", "visita", "visit", "agendar", "schedule"]
+        warm_keywords = ["info", "información", "information", "precio", "price", "costo", "cost", "interesado", "interested"]
+        
+        message_lower = message_body.lower()
+        
+        # Classify lead
+        if any(kw in message_lower for kw in hot_keywords):
+            lead_status = "hot"
+        elif any(kw in message_lower for kw in warm_keywords):
+            lead_status = "warm"
+        else:
+            lead_status = "cold"
+        
+        # Determine language (default to Spanish)
+        lang = "es" if any(kw in message_lower for kw in ["hola", "buenos", "quiero", "necesito"]) else "en"
+        
+        return {
+            "from": from_number,
+            "status": lead_status,
+            "language": lang,
+            "response": self.response_templates[lead_status][lang],
+            "timestamp": datetime.now().isoformat()
+        }
+    
     def generate_response(self, lead_data):
         """Generate appropriate response based on lead qualification"""
         score = lead_data.get("score", 0)

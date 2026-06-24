@@ -2,8 +2,8 @@
 # Register at: https://developers.facebook.com/docs/whatsapp/business-api
 
 whatsapp:
-  phone_number_id: ""  # Your WhatsApp Phone Number ID
-  access_token: ""     # Your Meta Access Token
+  phone_number_id: "1203127162879912"
+  access_token: "EAAZCQU4m1EsUBRx7jgoprVs2o0ZAwNhpPo6BDkPNcJgHGK0ucQFFHZBt4AT6S1T4E5wZCs2FNZB2o9TW7E3xfGgTwcWLTvBLZCRh6JSLQc6wYPu68wEjVRtF75IQpDZAZBW67fQzPyikY0AtTC1EZAeKZCDgQCBeAjEti0QoM9UOVPJieUZCql9KGVbDTJ5Oo91pZAsdSEaaq4Wrgbd1WBBqnUcZCgacSIsDF7pZCeJ2fzRCLhB0T7E5x6oXBnbdXBfpCEJdKgE1FD0VhuZC9PhJoIa8DXfEzkrjilOJ2igXD6BZCQZDZD"
   business_account_id: ""  # Optional: Business Account ID
   
   # Message templates
