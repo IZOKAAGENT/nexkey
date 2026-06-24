@@ -20,6 +20,8 @@ def get_headers():
         "Access-Control-Allow-Headers": "Content-Type, Authorization",
     }
 
+# Force redeploy marker: 2026-06-24-01
+
 
 def verify_webhook(request):
     """
