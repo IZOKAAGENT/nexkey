@@ -1,4 +1,9 @@
 {
   "version": 2,
-  "name": "nexkey"
+  "name": "nexkey",
+  "functions": {
+    "api/**/*.py": {
+      "runtime": "@vercel/python@4.1.3"
+    }
+  }
 }
